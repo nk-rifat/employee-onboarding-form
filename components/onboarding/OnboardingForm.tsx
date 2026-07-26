@@ -2,6 +2,7 @@
 import { useState } from "react";
 import OnboardingHeader from "./OnboardingHeader";
 import StepRail from "./StepRail";
+import { Step1Personal } from "./steps/Step1Personal";
 
 const STEP_LABELS = [
   "Personal",
@@ -34,7 +35,7 @@ const OnboardingForm = () => {
 
           <div className="min-w-0 flex-1">
             {/* form content goes here later */}
-            <p className="text-sm text-stone-400">Step content will go here.</p>
+            <Step1Personal />
           </div>
         </div>
       </div>
