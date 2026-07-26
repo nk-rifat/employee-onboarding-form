@@ -44,3 +44,6 @@ export const personalSchema = z.object({
       message: "File must be 2MB or smaller.",
     }),
 });
+
+
+export type PersonalFormData = z.infer<typeof personalSchema>;
