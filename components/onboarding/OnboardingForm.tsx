@@ -26,9 +26,9 @@ const OnboardingForm = () => {
 
         <div className="flex flex-col gap-8 sm:flex-row">
           <StepRail
-            steps={["Personal", "Job details", "Skills", "Emergency", "Review"]}
-            currentStep={1}
-            completedSteps={[]}
+            currentStep={currentStep}
+            completedSteps={completedSteps}
+            steps={STEP_LABELS}
             employeeName=""
           />
 
