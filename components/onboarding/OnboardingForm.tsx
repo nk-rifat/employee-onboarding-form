@@ -8,6 +8,7 @@ import StepRail from "./StepRail";
 import Step1Personal from "./steps/Step1Personal";
 import { Button } from "@/components/ui/button";
 import { personalSchema } from "@/lib/schemas/personalSchema";
+import { jobSchema } from "@/lib/schemas/jobSchema";
 
 const STEP_LABELS = [
   "Personal",
@@ -20,6 +21,7 @@ const STEP_LABELS = [
 // Temporary — expands to a combined schema as Steps 2-5 are added
 const currentSchema = z.object({
   personal: personalSchema,
+  job: jobSchema  ,
 });
 
 type OnboardingFormValues = z.infer<typeof currentSchema>;
