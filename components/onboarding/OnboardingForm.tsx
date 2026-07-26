@@ -9,6 +9,7 @@ import Step1Personal from "./steps/Step1Personal";
 import { Button } from "@/components/ui/button";
 import { personalSchema } from "@/lib/schemas/personalSchema";
 import { jobSchema } from "@/lib/schemas/jobSchema";
+import { Step2JobDetails } from "./steps/Step2JobDetails";
 
 const STEP_LABELS = [
   "Personal",
@@ -21,7 +22,7 @@ const STEP_LABELS = [
 // Temporary — expands to a combined schema as Steps 2-5 are added
 const currentSchema = z.object({
   personal: personalSchema,
-  job: jobSchema  ,
+  job: jobSchema,
 });
 
 type OnboardingFormValues = z.infer<typeof currentSchema>;
@@ -40,6 +41,15 @@ const OnboardingForm = () => {
         phone: "",
         dob: "",
         profilePicture: null,
+      },
+      job: {
+        department: undefined,
+        position: "",
+        startDate: "",
+        jobType: undefined,
+        salaryAnnual: "",
+        salaryHourly: "",
+        managerId: "",
       },
     },
   });
@@ -66,7 +76,8 @@ const OnboardingForm = () => {
     switch (step) {
       case 1:
         return <Step1Personal />;
-      // case 2: return <Step2JobDetails />;
+      case 2:
+        return <Step2JobDetails />;
       // case 3: return <Step3Skills />;
       // case 4: return <Step4Emergency />;
       // case 5: return <Step5Review />;
