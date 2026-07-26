@@ -97,7 +97,7 @@ export const jobSchema = z
       }
     }
 
-    if (data.jobType === "Contract") {
+    if (data.jobType === "Part-time" || data.jobType === "Contract") {
       if (!data.salaryHourly) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
