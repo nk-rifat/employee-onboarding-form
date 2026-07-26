@@ -27,3 +27,28 @@ export function isFridayOrSaturday(dateString: string): boolean {
   const day = d.getDay();
   return day === 5 || day === 6;
 }
+
+// check past date & 3 months future date
+export const isPastDate = (dateString: string): boolean => {
+  const date = new Date(`${dateString}T00:00:00`);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date < today;
+};
+
+export const isMoreThanDaysAway = (
+  dateString: string,
+  days: number,
+): boolean => {
+  const date = new Date(`${dateString}T00:00:00`);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const maxDate = new Date(today);
+  maxDate.setDate(maxDate.getDate() + days);
+
+  return date > maxDate;
+};
