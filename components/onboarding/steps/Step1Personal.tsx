@@ -8,8 +8,9 @@ import {
   FieldDescription,
   FieldError,
   FieldGroup,
-  FieldLabel
+  FieldLabel,
 } from "@/components/ui/field";
+import PhoneField from "../shared/PhoneField";
 
 const Step1Personal = () => {
   const { control } = useFormContext();
@@ -21,12 +22,7 @@ const Step1Personal = () => {
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel
-              htmlFor={field.name}
-              className="text-sm font-medium text-stone-700"
-            >
-              Full name
-            </FieldLabel>
+            <FieldLabel htmlFor={field.name}>Full name</FieldLabel>
             <Input
               {...field}
               id={field.name}
@@ -44,12 +40,7 @@ const Step1Personal = () => {
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel
-              htmlFor={field.name}
-              className="text-sm font-medium text-stone-700"
-            >
-              Email
-            </FieldLabel>
+            <FieldLabel htmlFor={field.name}>Email</FieldLabel>
             <Input
               {...field}
               id={field.name}
@@ -63,28 +54,10 @@ const Step1Personal = () => {
         )}
       />
 
-      <Controller
-        name="personal.phone"
+      <PhoneField
         control={control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel
-              htmlFor={field.name}
-              className="text-sm font-medium text-stone-700"
-            >
-              Phone number
-            </FieldLabel>
-            <Input
-              {...field}
-              id={field.name}
-              aria-invalid={fieldState.invalid}
-              placeholder="Your phone number"
-              autoComplete="tel"
-            />
-            <FieldDescription>Format: +1-123-456-7890</FieldDescription>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
+        name="personal.phone"
+        label="Phone Number"
       />
 
       <Controller
@@ -92,12 +65,7 @@ const Step1Personal = () => {
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel
-              htmlFor={field.name}
-              className="text-sm font-medium text-stone-700"
-            >
-              Date of birth
-            </FieldLabel>
+            <FieldLabel htmlFor={field.name}>Date of birth</FieldLabel>
             <Input
               {...field}
               id={field.name}
@@ -114,12 +82,7 @@ const Step1Personal = () => {
         control={control}
         render={({ field: { onChange, name }, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel
-              htmlFor={name}
-              className="text-sm font-medium text-stone-700"
-            >
-              Profile picture (optional)
-            </FieldLabel>
+            <FieldLabel htmlFor={name}>Profile picture (optional)</FieldLabel>
             <Input
               id={name}
               name={name}
@@ -135,6 +98,6 @@ const Step1Personal = () => {
       />
     </FieldGroup>
   );
-}
+};
 
 export default Step1Personal;
