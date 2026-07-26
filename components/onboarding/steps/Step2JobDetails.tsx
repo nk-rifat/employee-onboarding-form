@@ -23,6 +23,7 @@ import {
 import ManagerCombobox from "../shared/ManagerCombobox";
 import { departments, jobTypes } from "@/lib/schemas/jobSchema";
 import { mockManagers } from "@/lib/mockData";
+import DateField from "../shared/DateField";
 
 export function Step2JobDetails() {
   const { control, watch, setValue } = useFormContext();
@@ -34,7 +35,7 @@ export function Step2JobDetails() {
     (m) => m.department === department,
   );
 
-  // Reset manager whenever department changes — 
+  // Reset manager whenever department changes —
   useEffect(() => {
     setValue("job.managerId", "");
   }, [department, setValue]);
@@ -81,28 +82,14 @@ export function Step2JobDetails() {
         )}
       />
 
-      <Controller
-        name="job.startDate"
-        control={control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor={field.name}>Start date</FieldLabel>
-            <Input
-              {...field}
-              id={field.name}
-              type="date"
-              aria-invalid={fieldState.invalid}
-            />
-            {(department === "HR" || department === "Finance") &&
-              !fieldState.invalid && (
-                <FieldDescription>
-                  Cannot fall on Friday or Saturday for this department.
-                </FieldDescription>
-              )}
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
+      <DateField control={control} name="job.startDate" label="Start date">
+        {department === "HR" ||
+          (department === "Finance" && (
+            <FieldDescription>
+              Cannot fall on Friday or Saturday for this department.
+            </FieldDescription>
+          ))}
+      </DateField>
 
       <Controller
         name="job.jobType"

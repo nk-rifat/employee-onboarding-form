@@ -1,4 +1,5 @@
 "use client";
+import { ReactNode } from "react";
 
 import {
   Controller,
@@ -14,12 +15,14 @@ type DateFieldProps<T extends FieldValues> = {
   control: Control<T>;
   name: FieldPath<T>;
   label: string;
+  children?: ReactNode;
 };
 
 const DateField = <T extends FieldValues>({
   control,
   name,
   label,
+  children,
 }: DateFieldProps<T>) => {
   return (
     <Controller
@@ -35,7 +38,7 @@ const DateField = <T extends FieldValues>({
             type="date"
             aria-invalid={fieldState.invalid}
           />
-
+          {children}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
       )}
