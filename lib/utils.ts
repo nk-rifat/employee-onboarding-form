@@ -19,3 +19,11 @@ export function ageFromDob(dobString: string): number | null {
   }
   return age;
 }
+
+// --- check day for Step 2 form---
+export function isFridayOrSaturday(dateString: string): boolean {
+  if (!dateString) return false;
+  const d = new Date(dateString + "T00:00:00");
+  const day = d.getDay();
+  return day === 5 || day === 6;
+}
