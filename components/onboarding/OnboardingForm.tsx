@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import OnboardingHeader from "./OnboardingHeader";
+import StepRail from "./StepRail";
 
 const STEP_LABELS = [
   "Personal",
@@ -22,6 +23,20 @@ const OnboardingForm = () => {
           totalSteps={STEP_LABELS.length}
           stepLabel={STEP_LABELS[currentStep - 1]}
         />
+
+        <div className="flex flex-col gap-8 sm:flex-row">
+          <StepRail
+            steps={["Personal", "Job details", "Skills", "Emergency", "Review"]}
+            currentStep={1}
+            completedSteps={[]}
+            employeeName=""
+          />
+
+          <div className="min-w-0 flex-1">
+            {/* form content goes here later */}
+            <p className="text-sm text-stone-400">Step content will go here.</p>
+          </div>
+        </div>
       </div>
     </div>
   );
