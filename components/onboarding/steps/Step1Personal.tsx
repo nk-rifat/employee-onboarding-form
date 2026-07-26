@@ -11,7 +11,7 @@ import {
   FieldLabel
 } from "@/components/ui/field";
 
-export function Step1Personal() {
+const Step1Personal = () => {
   const { control } = useFormContext();
 
   return (
@@ -136,3 +136,5 @@ export function Step1Personal() {
     </FieldGroup>
   );
 }
+
+export default Step1Personal;

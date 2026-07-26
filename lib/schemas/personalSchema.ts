@@ -10,6 +10,10 @@ export const personalSchema = z.object({
     .min(1, "Full name is required")
     .refine((val) => val.split(/\s+/).length >= 2, {
       message: "Enter at least two words (first and last name).",
+    })
+    .refine((val) => /^[a-zA-Z\s'-]+$/.test(val), {
+      message:
+        "Full name can only contain letters, spaces, hyphens, and apostrophes.",
     }),
 
   email: z
@@ -44,6 +48,5 @@ export const personalSchema = z.object({
       message: "File must be 2MB or smaller.",
     }),
 });
-
 
 export type PersonalFormData = z.infer<typeof personalSchema>;
