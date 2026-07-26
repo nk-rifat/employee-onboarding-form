@@ -57,10 +57,32 @@ const OnboardingForm = () => {
   const { watch, trigger, handleSubmit } = form;
 
   async function goNext() {
-    const isValid = await trigger("personal");
+    let isValid = false;
+
+    switch (currentStep) {
+      case 1:
+        isValid = await trigger("personal");
+        break;
+
+      case 2:
+        isValid = await trigger("job");
+        break;
+
+      // case 3:
+      //   isValid = await trigger("skills");
+      //   break;
+
+      // case 4:
+      //   isValid = await trigger("emergency");
+      //   break;
+
+      default:
+        isValid = true;
+    }
+
     if (!isValid) return;
 
-    setCompletedSteps((prev) => Array.from(new Set([...prev, currentStep])));
+    setCompletedSteps((prev) => [...new Set([...prev, currentStep])]);
     setCurrentStep((prev) => Math.min(prev + 1, STEP_LABELS.length));
   }
 
