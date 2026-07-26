@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
@@ -34,10 +34,18 @@ export function Step2JobDetails() {
   const filteredManagers = mockManagers.filter(
     (m) => m.department === department,
   );
+  const previousDepartment = useRef(department);
 
   // Reset manager whenever department changes —
   useEffect(() => {
-    setValue("job.managerId", "");
+    if (
+      previousDepartment.current &&
+      previousDepartment.current !== department
+    ) {
+      setValue("job.managerId", "");
+    }
+
+    previousDepartment.current = department;
   }, [department, setValue]);
 
   return (
