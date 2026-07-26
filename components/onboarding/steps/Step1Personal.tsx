@@ -11,6 +11,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import PhoneField from "../shared/PhoneField";
+import DateField from "../shared/DateField";
 
 const Step1Personal = () => {
   const { control } = useFormContext();
@@ -60,22 +61,7 @@ const Step1Personal = () => {
         label="Phone Number"
       />
 
-      <Controller
-        name="personal.dob"
-        control={control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor={field.name}>Date of birth</FieldLabel>
-            <Input
-              {...field}
-              id={field.name}
-              type="date"
-              aria-invalid={fieldState.invalid}
-            />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
+      <DateField control={control} name="personal.dob" label="Date of Birth" />
 
       <Controller
         name="personal.profilePicture"
