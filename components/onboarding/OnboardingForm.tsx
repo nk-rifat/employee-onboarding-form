@@ -6,6 +6,7 @@ import OnboardingHeader from "./OnboardingHeader";
 import StepRail from "./StepRail";
 import Step1Personal from "./steps/Step1Personal";
 import { Step2JobDetails } from "./steps/Step2JobDetails";
+import { transformOnboardingData } from "./config/transformFormData";
 
 import {
   onboardingSchema,
@@ -36,25 +37,27 @@ const OnboardingForm = () => {
     defaultValues,
   });
 
-  const { watch, trigger, handleSubmit, formState: { isDirty }, } = form;
+  const {
+    watch,
+    trigger,
+    handleSubmit,
+    formState: { isDirty },
+  } = form;
 
   useEffect(() => {
-  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-    if (!isDirty) return;
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (!isDirty) return;
 
-    event.preventDefault();
-    event.returnValue = "";
-  };
+      event.preventDefault();
+      event.returnValue = "";
+    };
 
-  window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
-  return () => {
-    window.removeEventListener(
-      "beforeunload",
-      handleBeforeUnload
-    );
-  };
-}, [isDirty]);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [isDirty]);
 
   async function goNext() {
     let isValid = false;
@@ -91,7 +94,9 @@ const OnboardingForm = () => {
   }
 
   function onSubmit(data: OnboardingFormValues) {
-    console.log("Final submission:", data);
+    const payload = transformOnboardingData(data);
+
+    console.log("Final submission payload:", payload);
   }
 
   function renderStep(step: number) {
@@ -104,7 +109,8 @@ const OnboardingForm = () => {
         return <Step3Skills />;
       case 4:
         return <Step4Emergency />;
-      case 5: return <Step5Review />;
+      case 5:
+        return <Step5Review />;
       default:
         return null;
     }
