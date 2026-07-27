@@ -13,6 +13,9 @@ export const onboardingSchema = z
     job: jobSchema,
     skills: skillsSchema,
     emergency: emergencySchema,
+    confirm: z.boolean().refine((val) => val === true, {
+      message: "You must confirm all information is correct.",
+    }),
   })
   .superRefine((data, ctx) => {
     const age = ageFromDob(data.personal.dob);
