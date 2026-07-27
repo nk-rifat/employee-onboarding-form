@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, FormProvider, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import OnboardingHeader from "./OnboardingHeader";
@@ -36,7 +36,25 @@ const OnboardingForm = () => {
     defaultValues,
   });
 
-  const { watch, trigger, handleSubmit } = form;
+  const { watch, trigger, handleSubmit, formState: { isDirty }, } = form;
+
+  useEffect(() => {
+  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+    if (!isDirty) return;
+
+    event.preventDefault();
+    event.returnValue = "";
+  };
+
+  window.addEventListener("beforeunload", handleBeforeUnload);
+
+  return () => {
+    window.removeEventListener(
+      "beforeunload",
+      handleBeforeUnload
+    );
+  };
+}, [isDirty]);
 
   async function goNext() {
     let isValid = false;
