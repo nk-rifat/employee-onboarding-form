@@ -14,7 +14,8 @@ import {
 
 import { defaultValues } from "./config/defaultValues";
 import OnboardingNavigation from "./config/OnboardingNavigation";
-import  Step3Skills  from "./steps/Step3Skills";
+import Step3Skills from "./steps/Step3Skills";
+import Step4Emergency from "./steps/Step4Emergency";
 
 const STEP_LABELS = [
   "Personal",
@@ -52,9 +53,9 @@ const OnboardingForm = () => {
         isValid = await trigger("skills");
         break;
 
-      // case 4:
-      //   isValid = await trigger("emergency");
-      //   break;
+      case 4:
+        isValid = await trigger("emergency");
+        break;
 
       default:
         isValid = true;
@@ -80,8 +81,10 @@ const OnboardingForm = () => {
         return <Step1Personal />;
       case 2:
         return <Step2JobDetails />;
-      case 3: return <Step3Skills />;
-      // case 4: return <Step4Emergency />;
+      case 3:
+        return <Step3Skills />;
+      case 4:
+        return <Step4Emergency />;
       // case 5: return <Step5Review />;
       default:
         return null;
