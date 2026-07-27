@@ -53,6 +53,7 @@ export const isMoreThanDaysAway = (
   return date > maxDate;
 };
 
+// 12 hours time format
 export function formatTime12Hour(time: string): string {
   if (!time) return "—";
 
@@ -66,5 +67,16 @@ export function formatTime12Hour(time: string): string {
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
+  });
+}
+
+// date format
+export function formatDate(dateString: string): string {
+  if (!dateString) return "—";
+
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }

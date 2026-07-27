@@ -1,7 +1,7 @@
 "use client";
 
 import { Controller, useFormContext } from "react-hook-form";
-import { ageFromDob } from "@/lib/utils";
+import { ageFromDob, formatDate } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { OnboardingFormValues } from "../config/formSchema";
 import ReviewSection from "./review/ReviewSection";
@@ -36,14 +36,14 @@ const Step5Review = () => {
         <ReviewRow label="Full name" value={personal.fullName} />
         <ReviewRow label="Email" value={personal.email} />
         <ReviewRow label="Phone" value={personal.phone} />
-        <ReviewRow label="Date of birth" value={personal.dob} />
+        <ReviewRow label="Date of birth" value={formatDate(personal.dob)} />
         <ReviewRow label="Age" value={age ?? "—"} />
       </ReviewSection>
 
       <ReviewSection title="Job details">
         <ReviewRow label="Department" value={job.department} />
         <ReviewRow label="Position" value={job.position} />
-        <ReviewRow label="Start date" value={job.startDate} />
+        <ReviewRow label="Start date" value={formatDate(job.startDate)} />
         <ReviewRow label="Job type" value={job.jobType} />
         <ReviewRow label="Compensation" value={compensation} />
         <ReviewRow label="Manager" value={manager?.name} />
