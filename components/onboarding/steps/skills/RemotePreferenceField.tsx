@@ -44,8 +44,8 @@ const RemotePreferenceField = <T extends FieldValues>({
               </FieldLabel>
               <Slider
                 id={remoteField.name}
-                defaultValue={[remoteValue]}
-                onValueCommitted={(val: number | readonly number[]) => {
+                value={[remoteValue]}
+                onValueChange={(val: number | readonly number[]) => {
                   const next = Array.isArray(val) ? val[0] : val;
                   remoteField.onChange(next);
                 }}
