@@ -8,12 +8,13 @@ export const skillsSchema = z
     workHoursEnd: z.string().min(1, "End time is required."),
     remotePreference: z.number().min(0).max(100),
     managerApproved: z.boolean(),
-    notes: z.string().max(500, "Max 500 characters.").optional(),
+    notes: z.string().trim().max(500, "Max 500 characters.").optional(),
   })
   .superRefine((data, ctx) => {
+    const skills = data.selectedSkills;
     // Every selected skill needs a valid time (years)
-    data.selectedSkills.forEach((skill) => {
-      const raw = data.skillExperience[skill];
+    skills.forEach((skill) => {
+      const raw = data.skillExperience?.[skill];
       const value = Number(raw);
       if (raw === undefined || raw === "" || Number.isNaN(value) || value < 0) {
         ctx.addIssue({
