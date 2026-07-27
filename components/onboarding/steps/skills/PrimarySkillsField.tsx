@@ -50,9 +50,11 @@ const PrimarySkillsField = <T extends FieldValues>({
             ? [...selected, skill]
             : selected.filter((s: string) => s !== skill);
 
-          let nextExperience = currentExperience;
+          const nextExperience = { ...currentExperience };
+
           if (!isChecked) {
-            nextExperience = { ...currentExperience };
+            nextExperience[skill] = nextExperience[skill] ?? "";
+          } else {
             delete nextExperience[skill];
           }
 

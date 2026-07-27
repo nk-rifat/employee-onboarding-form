@@ -34,7 +34,7 @@ const Step3Skills = () => {
         experienceFieldName="skills.skillExperience"
         skills={availableSkills}
         currentExperience={skillExperience}
-        onValuesChange={(nextExperience) => {
+        onValuesChange={(nextSkills, nextExperience) => {
           setValue("skills.skillExperience", nextExperience, {
             shouldValidate: true,
           });
