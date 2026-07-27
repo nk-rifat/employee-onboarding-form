@@ -55,7 +55,7 @@ const OnboardingForm = () => {
         break;
 
       case 4:
-        isValid = await trigger();
+        isValid = await trigger("emergency");
         break;
 
       default:
