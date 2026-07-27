@@ -25,14 +25,14 @@ export const onboardingSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["emergency", "guardianName"],
-          message: "Guardian name is required under age 21.",
+          message: "Guardian name is required.",
         });
       }
       if (!data.emergency.guardianPhone) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["emergency", "guardianPhone"],
-          message: "Guardian phone is required under age 21.",
+          message: "Guardian phone is required.",
         });
       } else if (!phoneRegex.test(data.emergency.guardianPhone)) {
         ctx.addIssue({

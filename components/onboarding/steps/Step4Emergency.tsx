@@ -88,6 +88,15 @@ const Step4Emergency = () => {
             <Controller
               name="emergency.guardianName"
               control={control}
+              rules={{
+                validate: (value) => {
+                  if (!needsGuardian) return true;
+
+                  return value.trim()
+                    ? true
+                    : "Guardian name is required under age 21.";
+                },
+              }}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Guardian name</FieldLabel>
@@ -107,6 +116,19 @@ const Step4Emergency = () => {
               control={control}
               name="emergency.guardianPhone"
               label="Guardian phone"
+              rules={{
+                validate: (value) => {
+                  if (!needsGuardian) return true;
+
+                  if (!value.trim()) {
+                    return "Guardian phone is required under age 21.";
+                  }
+
+                  return /^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/.test(value)
+                    ? true
+                    : "Use the format +1-123-456-7890.";
+                },
+              }}
             />
           </div>
         </>

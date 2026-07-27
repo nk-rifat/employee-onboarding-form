@@ -5,6 +5,7 @@ import {
   type Control,
   type FieldPath,
   type FieldValues,
+  type RegisterOptions,
 } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
@@ -14,17 +15,20 @@ type PhoneFieldProps<T extends FieldValues> = {
   control: Control<T>;
   name: FieldPath<T>;
   label: string;
+  rules?: RegisterOptions<T, FieldPath<T>>;
 };
 
 const PhoneField = <T extends FieldValues>({
   control,
   name,
   label,
+  rules,
 }: PhoneFieldProps<T>) => {
   return (
     <Controller
       name={name}
       control={control}
+      rules={rules}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
           <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
