@@ -7,6 +7,7 @@ import StepRail from "./StepRail";
 import Step1Personal from "./steps/Step1Personal";
 import { Step2JobDetails } from "./steps/Step2JobDetails";
 import { transformOnboardingData } from "./config/transformFormData";
+import OnboardingSuccess from "./OnboardingSuccess";
 
 import {
   onboardingSchema,
@@ -30,6 +31,7 @@ const STEP_LABELS = [
 const OnboardingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<OnboardingFormValues>({
     resolver: zodResolver(onboardingSchema) as Resolver<OnboardingFormValues>,
@@ -97,6 +99,8 @@ const OnboardingForm = () => {
     const payload = transformOnboardingData(data);
 
     console.log("Final submission payload:", payload);
+
+    setSubmitted(true);
   }
 
   function renderStep(step: number) {
@@ -116,7 +120,18 @@ const OnboardingForm = () => {
     }
   }
 
+  function startOver() {
+    form.reset(defaultValues);
+    setCurrentStep(1);
+    setCompletedSteps([]);
+    setSubmitted(false);
+  }
+
   const isLastStep = currentStep === STEP_LABELS.length;
+
+  if (submitted) {
+    return <OnboardingSuccess onStartOver={startOver} />;
+  }
 
   return (
     <FormProvider {...form}>
