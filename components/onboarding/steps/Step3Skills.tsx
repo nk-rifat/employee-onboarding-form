@@ -1,12 +1,18 @@
 "use client";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
-import { FieldGroup } from "@/components/ui/field";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 
 import SkillExperienceField from "./skills/SkillExperienceField";
 
 import { skillsByDepartment } from "@/lib/mockData";
 import PrimarySkillsField from "./skills/PrimarySkillsField";
+import { Input } from "@/components/ui/input";
 
 const Step3Skills = () => {
   const { control, watch, setValue } = useFormContext();
@@ -38,6 +44,46 @@ const Step3Skills = () => {
         name="skills.skillExperience"
         skills={selectedSkills}
       />
+
+      {/* Preferred working hours */}
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <Controller
+          name="skills.workHoursStart"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor={field.name}>
+                Preferred hours — start
+              </FieldLabel>
+              <Input
+                {...field}
+                id={field.name}
+                type="time"
+                aria-invalid={fieldState.invalid}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+        <Controller
+          name="skills.workHoursEnd"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor={field.name}>
+                Preferred hours — end
+              </FieldLabel>
+              <Input
+                {...field}
+                id={field.name}
+                type="time"
+                aria-invalid={fieldState.invalid}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+      </div>
     </FieldGroup>
   );
 };
