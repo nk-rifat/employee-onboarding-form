@@ -14,6 +14,7 @@ import {
 
 import { defaultValues } from "./config/defaultValues";
 import OnboardingNavigation from "./config/OnboardingNavigation";
+import  Step3Skills  from "./steps/Step3Skills";
 
 const STEP_LABELS = [
   "Personal",
@@ -79,7 +80,7 @@ const OnboardingForm = () => {
         return <Step1Personal />;
       case 2:
         return <Step2JobDetails />;
-      // case 3: return <Step3Skills />;
+      case 3: return <Step3Skills />;
       // case 4: return <Step4Emergency />;
       // case 5: return <Step5Review />;
       default:

@@ -43,6 +43,8 @@ export function Step2JobDetails() {
       previousDepartment.current !== department
     ) {
       setValue("job.managerId", "");
+      setValue("skills.selectedSkills", []);
+      setValue("skills.skillExperience", {});
     }
 
     previousDepartment.current = department;
