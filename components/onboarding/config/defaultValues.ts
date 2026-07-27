@@ -28,8 +28,7 @@ export const defaultValues: OnboardingFormValues = {
   },
   emergency: {
     contactName: "",
-    relationship:
-      undefined as unknown as OnboardingFormValues["emergency"]["relationship"],
+    relationship: "" as OnboardingFormValues["emergency"]["relationship"],
     phone: "",
     guardianName: "",
     guardianPhone: "",
