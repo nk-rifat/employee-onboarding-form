@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { personalSchema } from "@/lib/schemas/personalSchema";
 import { jobSchema } from "@/lib/schemas/jobSchema";
 import { Step2JobDetails } from "./steps/Step2JobDetails";
+import { skillsSchema } from "@/lib/schemas/skillsSchema";
 
 const STEP_LABELS = [
   "Personal",
@@ -23,6 +24,7 @@ const STEP_LABELS = [
 const currentSchema = z.object({
   personal: personalSchema,
   job: jobSchema,
+  skills: skillsSchema,
 });
 
 type OnboardingFormValues = z.infer<typeof currentSchema>;
