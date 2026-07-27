@@ -8,6 +8,7 @@ import ReviewSection from "./review/ReviewSection";
 import ReviewRow from "./review/ReviewRow";
 import { mockManagers } from "@/lib/mockData";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { formatTime12Hour } from "@/lib/utils";
 
 const Step5Review = () => {
   const { control, watch } = useFormContext<OnboardingFormValues>();
@@ -54,7 +55,9 @@ const Step5Review = () => {
           label="Preferred hours"
           value={
             skills.workHoursStart && skills.workHoursEnd
-              ? `${skills.workHoursStart} – ${skills.workHoursEnd}`
+              ? `${formatTime12Hour(skills.workHoursStart)} – ${formatTime12Hour(
+                  skills.workHoursEnd,
+                )}`
               : "—"
           }
         />
