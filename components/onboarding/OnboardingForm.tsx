@@ -19,6 +19,7 @@ import OnboardingNavigation from "./config/OnboardingNavigation";
 import Step3Skills from "./steps/Step3Skills";
 import Step4Emergency from "./steps/Step4Emergency";
 import Step5Review from "./steps/Step5Review";
+import { useOnboardingSteps } from "./hooks/useOnboardingSteps";
 
 const STEP_LABELS = [
   "Personal",
@@ -29,8 +30,13 @@ const STEP_LABELS = [
 ];
 
 const OnboardingForm = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const {
+    currentStep,
+    completedSteps,
+    goNext: nextStep,
+    goBack: stepBack,
+    resetSteps,
+  } = useOnboardingSteps();
   const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<OnboardingFormValues>({
@@ -87,12 +93,7 @@ const OnboardingForm = () => {
 
     if (!isValid) return;
 
-    setCompletedSteps((prev) => [...new Set([...prev, currentStep])]);
-    setCurrentStep((prev) => Math.min(prev + 1, STEP_LABELS.length));
-  }
-
-  function goBack() {
-    setCurrentStep((prev) => Math.max(prev - 1, 1));
+    nextStep();
   }
 
   function onSubmit(data: OnboardingFormValues) {
@@ -122,8 +123,7 @@ const OnboardingForm = () => {
 
   function startOver() {
     form.reset(defaultValues);
-    setCurrentStep(1);
-    setCompletedSteps([]);
+    resetSteps();
     setSubmitted(false);
   }
 
@@ -164,7 +164,7 @@ const OnboardingForm = () => {
             <OnboardingNavigation
               currentStep={currentStep}
               isLastStep={isLastStep}
-              onBack={goBack}
+              onBack={stepBack}
               onNext={goNext}
             />
           </div>
