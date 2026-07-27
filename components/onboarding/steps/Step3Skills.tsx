@@ -13,6 +13,7 @@ import SkillExperienceField from "./skills/SkillExperienceField";
 import { skillsByDepartment } from "@/lib/mockData";
 import PrimarySkillsField from "./skills/PrimarySkillsField";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const Step3Skills = () => {
   const { control, watch, setValue } = useFormContext();
@@ -21,6 +22,7 @@ const Step3Skills = () => {
   const selectedSkills = watch("skills.selectedSkills") ?? [];
   const availableSkills = skillsByDepartment[department] ?? [];
   const skillExperience = watch("skills.skillExperience") ?? {};
+  const notes = watch("skills.notes") ?? "";
 
   return (
     <FieldGroup className="gap-6">
@@ -84,6 +86,29 @@ const Step3Skills = () => {
           )}
         />
       </div>
+
+      {/* Extra notes*/}
+      <Controller
+        name="skills.notes"
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={field.name}>
+              Extra notes ({notes.length}/500)
+            </FieldLabel>
+            <Textarea
+              {...field}
+              value={field.value ?? ""}
+              id={field.name}
+              rows={3}
+              maxLength={500}
+              placeholder="Anything else worth knowing before day one?"
+              aria-invalid={fieldState.invalid}
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
     </FieldGroup>
   );
 };
