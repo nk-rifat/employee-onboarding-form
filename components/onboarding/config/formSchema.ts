@@ -44,4 +44,4 @@ export const onboardingSchema = z
     }
   });
 
-export type OnboardingFormValues = z.infer<typeof onboardingSchema>;
+export type OnboardingFormValues = z.input<typeof onboardingSchema>;

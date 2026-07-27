@@ -12,9 +12,11 @@ export const relationshipOptions = [
 
 export const emergencySchema = z.object({
   contactName: z.string().trim().min(1, "Contact name is required."),
-  relationship: z.enum(relationshipOptions, {
-    errorMap: () => ({ message: "Select a relationship." }),
-  }),
+  relationship: z
+    .union([z.literal(""), z.enum(relationshipOptions)])
+    .refine((val) => val !== "", {
+      message: "Select a relationship.",
+    }),
   phone: z
     .string()
     .trim()
