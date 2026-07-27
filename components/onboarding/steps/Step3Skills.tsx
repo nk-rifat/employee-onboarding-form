@@ -14,6 +14,7 @@ import { skillsByDepartment } from "@/lib/mockData";
 import PrimarySkillsField from "./skills/PrimarySkillsField";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import RemotePreferenceField from "./skills/RemotePreferenceField";
 
 const Step3Skills = () => {
   const { control, watch, setValue } = useFormContext();
@@ -33,7 +34,7 @@ const Step3Skills = () => {
         experienceFieldName="skills.skillExperience"
         skills={availableSkills}
         currentExperience={skillExperience}
-        onValuesChange={(nextSkills, nextExperience) => {
+        onValuesChange={(nextExperience) => {
           setValue("skills.skillExperience", nextExperience, {
             shouldValidate: true,
           });
@@ -86,6 +87,12 @@ const Step3Skills = () => {
           )}
         />
       </div>
+      {/* Remote Preference*/}
+      <RemotePreferenceField
+        control={control}
+        remoteName="skills.remotePreference"
+        approvalName="skills.managerApproved"
+      />
 
       {/* Extra notes*/}
       <Controller

@@ -48,9 +48,9 @@ const OnboardingForm = () => {
         isValid = await trigger("job");
         break;
 
-      // case 3:
-      //   isValid = await trigger("skills");
-      //   break;
+      case 3:
+        isValid = await trigger("skills");
+        break;
 
       // case 4:
       //   isValid = await trigger("emergency");
