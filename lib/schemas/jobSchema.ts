@@ -17,9 +17,11 @@ export const jobTypes = ["Full-time", "Part-time", "Contract"] as const;
 
 export const jobSchema = z
   .object({
-    department: z.enum(departments, {
-      message: "Select a department.",
-    }),
+    department: z
+      .union([z.literal(""), z.enum(departments)])
+      .refine((value) => value !== "", {
+        message: "Select a department.",
+      }),
 
     position: z
       .string()
@@ -28,9 +30,11 @@ export const jobSchema = z
 
     startDate: z.string().min(1, "Start date is required."),
 
-    jobType: z.enum(jobTypes, {
-      message: "Select a job type.",
-    }),
+    jobType: z
+      .union([z.literal(""), z.enum(jobTypes)])
+      .refine((value) => value !== "", {
+        message: "Select a job type.",
+      }),
 
     salaryAnnual: z.string().optional(),
 
