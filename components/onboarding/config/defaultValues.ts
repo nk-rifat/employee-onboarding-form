@@ -33,4 +33,5 @@ export const defaultValues: OnboardingFormValues = {
     guardianName: "",
     guardianPhone: "",
   },
+  confirm: false,
 };
