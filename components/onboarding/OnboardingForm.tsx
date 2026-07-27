@@ -43,10 +43,10 @@ const OnboardingForm = () => {
         profilePicture: null,
       },
       job: {
-        department: undefined,
+        department: "",
         position: "",
         startDate: "",
-        jobType: undefined,
+        jobType: "",
         salaryAnnual: "",
         salaryHourly: "",
         managerId: "",
