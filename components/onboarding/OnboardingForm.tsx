@@ -2,15 +2,18 @@
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import OnboardingHeader from "./OnboardingHeader";
 import StepRail from "./StepRail";
 import Step1Personal from "./steps/Step1Personal";
-import { Button } from "@/components/ui/button";
-import { personalSchema } from "@/lib/schemas/personalSchema";
-import { jobSchema } from "@/lib/schemas/jobSchema";
 import { Step2JobDetails } from "./steps/Step2JobDetails";
-import { skillsSchema } from "@/lib/schemas/skillsSchema";
+
+import {
+  onboardingSchema,
+  type OnboardingFormValues,
+} from "./config/formSchema";
+
+import { defaultValues } from "./config/defaultValues";
+import OnboardingNavigation from "./config/OnboardingNavigation";
 
 const STEP_LABELS = [
   "Personal",
@@ -20,40 +23,14 @@ const STEP_LABELS = [
   "Review",
 ];
 
-// Temporary — expands to a combined schema as Steps 2-5 are added
-const currentSchema = z.object({
-  personal: personalSchema,
-  job: jobSchema,
-  skills: skillsSchema,
-});
-
-type OnboardingFormValues = z.infer<typeof currentSchema>;
-
 const OnboardingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
   const form = useForm<OnboardingFormValues>({
-    resolver: zodResolver(currentSchema),
+    resolver: zodResolver(onboardingSchema),
     mode: "onChange",
-    defaultValues: {
-      personal: {
-        fullName: "",
-        email: "",
-        phone: "",
-        dob: "",
-        profilePicture: null,
-      },
-      job: {
-        department: "",
-        position: "",
-        startDate: "",
-        jobType: "",
-        salaryAnnual: "",
-        salaryHourly: "",
-        managerId: "",
-      },
-    },
+    defaultValues,
   });
 
   const { watch, trigger, handleSubmit } = form;
@@ -140,25 +117,12 @@ const OnboardingForm = () => {
               {renderStep(currentStep)}
             </form>
 
-            <div className="mt-8 flex items-center justify-between border-t border-stone-100 pt-5">
-              <Button
-                variant="outline"
-                onClick={goBack}
-                disabled={currentStep === 1}
-              >
-                Back
-              </Button>
-
-              {isLastStep ? (
-                <Button type="submit" form="onboarding-form">
-                  Submit
-                </Button>
-              ) : (
-                <Button type="button" onClick={goNext}>
-                  Next
-                </Button>
-              )}
-            </div>
+            <OnboardingNavigation
+              currentStep={currentStep}
+              isLastStep={isLastStep}
+              onBack={goBack}
+              onNext={goNext}
+            />
           </div>
         </div>
       </div>
