@@ -20,6 +20,7 @@ import Step3Skills from "./steps/Step3Skills";
 import Step4Emergency from "./steps/Step4Emergency";
 import Step5Review from "./steps/Step5Review";
 import { useOnboardingSteps } from "./hooks/useOnboardingSteps";
+import { useFieldKeyboardNav } from "./hooks/useFieldKeyboardNav";
 
 const STEP_LABELS = [
   "Personal",
@@ -39,6 +40,7 @@ const OnboardingForm = () => {
   } = useOnboardingSteps();
   const [submitted, setSubmitted] = useState(false);
 
+  // All 5 steps read/write into this one form via FormProvider + useFormContext
   const form = useForm<OnboardingFormValues>({
     resolver: zodResolver(onboardingSchema) as Resolver<OnboardingFormValues>,
     mode: "onChange",
@@ -129,6 +131,16 @@ const OnboardingForm = () => {
 
   const isLastStep = currentStep === STEP_LABELS.length;
 
+  const { handleKeyDown } = useFieldKeyboardNav({
+    onAdvance: () => {
+      if (isLastStep) {
+        handleSubmit(onSubmit)();
+      } else {
+        goNext();
+      }
+    },
+  });
+
   if (submitted) {
     return <OnboardingSuccess onStartOver={startOver} />;
   }
@@ -154,6 +166,7 @@ const OnboardingForm = () => {
           <div className="min-w-0 flex-1">
             <form
               id="onboarding-form"
+              onKeyDown={handleKeyDown}
               onSubmit={
                 isLastStep ? handleSubmit(onSubmit) : (e) => e.preventDefault()
               }
