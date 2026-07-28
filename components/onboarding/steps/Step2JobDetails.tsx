@@ -4,13 +4,6 @@ import { useEffect, useRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Field,
@@ -24,6 +17,7 @@ import ManagerCombobox from "../shared/ManagerCombobox";
 import { departments, jobTypes } from "@/lib/schemas/jobSchema";
 import { mockManagers } from "@/lib/mockData";
 import DateField from "../shared/DateField";
+import SelectField from "../shared/SelectField";
 
 export function Step2JobDetails() {
   const { control, watch, setValue } = useFormContext();
@@ -52,27 +46,12 @@ export function Step2JobDetails() {
 
   return (
     <FieldGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-      <Controller
-        name="job.department"
+      <SelectField
         control={control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor={field.name}>Department</FieldLabel>
-            <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger id={field.name} aria-invalid={fieldState.invalid}>
-                <SelectValue placeholder="Select department" />
-              </SelectTrigger>
-              <SelectContent>
-                {departments.map((d) => (
-                  <SelectItem key={d} value={d}>
-                    {d}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
+        name="job.department"
+        label="Department"
+        options={departments}
+        placeholder="Select department"
       />
 
       <Controller

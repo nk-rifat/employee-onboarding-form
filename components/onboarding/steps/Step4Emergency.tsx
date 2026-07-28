@@ -1,22 +1,11 @@
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { FieldGroup } from "@/components/ui/field";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Controller, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import PhoneField from "../shared/PhoneField";
 import { relationshipOptions } from "@/lib/schemas/emergencySchema";
 import { ageFromDob } from "@/lib/utils";
 import NameField from "../shared/NameField";
+import SelectField from "../shared/SelectField";
 
 const Step4Emergency = () => {
   const { control, watch } = useFormContext();
@@ -35,30 +24,12 @@ const Step4Emergency = () => {
           placeholder="Name"
         />
 
-        <Controller
-          name="emergency.relationship"
+        <SelectField
           control={control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Relationship</FieldLabel>
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger
-                  id={field.name}
-                  aria-invalid={fieldState.invalid}
-                >
-                  <SelectValue placeholder="Select relationship" />
-                </SelectTrigger>
-                <SelectContent>
-                  {relationshipOptions.map((option) => (
-                    <SelectItem key={option} value={option}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
+          name="emergency.relationship"
+          label="Relationship"
+          options={relationshipOptions}
+          placeholder="Select relationship"
         />
 
         <PhoneField
