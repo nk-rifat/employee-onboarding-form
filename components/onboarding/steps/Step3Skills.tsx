@@ -9,12 +9,11 @@ import {
 } from "@/components/ui/field";
 
 import SkillExperienceField from "./skills/SkillExperienceField";
-
 import { skillsByDepartment } from "@/lib/mockData";
 import PrimarySkillsField from "./skills/PrimarySkillsField";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import RemotePreferenceField from "./skills/RemotePreferenceField";
+import TimeField from "../shared/TimeField";
 
 const Step3Skills = () => {
   const { control, watch, setValue } = useFormContext();
@@ -50,41 +49,15 @@ const Step3Skills = () => {
 
       {/* Preferred working hours */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <Controller
+        <TimeField
+          control={control}
           name="skills.workHoursStart"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>
-                Preferred hours — start
-              </FieldLabel>
-              <Input
-                {...field}
-                id={field.name}
-                type="time"
-                aria-invalid={fieldState.invalid}
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
+          label="Preferred hours — start"
         />
-        <Controller
-          name="skills.workHoursEnd"
+        <TimeField
           control={control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>
-                Preferred hours — end
-              </FieldLabel>
-              <Input
-                {...field}
-                id={field.name}
-                type="time"
-                aria-invalid={fieldState.invalid}
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
+          name="skills.workHoursEnd"
+          label="Preferred hours — end"
         />
       </div>
       {/* Remote Preference*/}
