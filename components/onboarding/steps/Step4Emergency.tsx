@@ -4,7 +4,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+
 import {
   Select,
   SelectContent,
@@ -16,6 +16,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import PhoneField from "../shared/PhoneField";
 import { relationshipOptions } from "@/lib/schemas/emergencySchema";
 import { ageFromDob } from "@/lib/utils";
+import NameField from "../shared/NameField";
 
 const Step4Emergency = () => {
   const { control, watch } = useFormContext();
@@ -27,20 +28,11 @@ const Step4Emergency = () => {
   return (
     <FieldGroup className="gap-6">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <Controller
-          name="emergency.contactName"
+        <NameField
           control={control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Contact name</FieldLabel>
-              <Input
-                {...field}
-                id={field.name}
-                aria-invalid={fieldState.invalid}
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
+          name="emergency.contactName"
+          label="Contact name"
+          placeholder="Name"
         />
 
         <Controller
@@ -85,31 +77,19 @@ const Step4Emergency = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <Controller
-              name="emergency.guardianName"
+            <NameField
               control={control}
+              name="emergency.guardianName"
+              label="Guardian name"
+              placeholder="Guardian name"
               rules={{
-                validate: (value) => {
+                validate: (value: string) => {
                   if (!needsGuardian) return true;
-
                   return value.trim()
                     ? true
                     : "Guardian name is required under age 21.";
                 },
               }}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Guardian name</FieldLabel>
-                  <Input
-                    {...field}
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
             />
 
             <PhoneField

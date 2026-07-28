@@ -12,29 +12,14 @@ import {
 } from "@/components/ui/field";
 import PhoneField from "../shared/PhoneField";
 import DateField from "../shared/DateField";
+import NameField from "../shared/NameField";
 
 const Step1Personal = () => {
   const { control } = useFormContext();
 
   return (
     <FieldGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-      <Controller
-        name="personal.fullName"
-        control={control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor={field.name}>Full name</FieldLabel>
-            <Input
-              {...field}
-              id={field.name}
-              aria-invalid={fieldState.invalid}
-              placeholder="Your full name"
-              autoComplete="name"
-            />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
+      <NameField control={control} name="personal.fullName" label="Full name" />
 
       <Controller
         name="personal.email"
