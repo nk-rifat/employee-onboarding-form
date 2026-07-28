@@ -51,7 +51,7 @@ const RemotePreferenceField = <T extends FieldValues>({
                 }}
                 min={0}
                 max={100}
-                step={5}
+                step={1}
                 className="w-full **:data-[slot=slider-range]:bg-indigo-600 **:data-[slot=slider-thumb]:border-indigo-600"
               />
             </Field>

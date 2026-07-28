@@ -26,7 +26,10 @@ export const jobSchema = z
     position: z
       .string()
       .trim()
-      .min(3, "Position title must be at least 3 characters."),
+      .min(3, "Must be at least 3 characters.")
+      .refine((val) => /^[a-zA-Z\s'-]+$/.test(val), {
+        message: "Position title can only contain letters.",
+      }),
 
     startDate: z.string().min(1, "Start date is required."),
 

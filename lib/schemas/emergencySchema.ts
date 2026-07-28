@@ -11,7 +11,13 @@ export const relationshipOptions = [
 ] as const;
 
 export const emergencySchema = z.object({
-  contactName: z.string().trim().min(1, "Contact name is required."),
+  contactName: z
+    .string()
+    .trim()
+    .min(3, "Must be at least 3 characters.")
+    .refine((val) => /^[a-zA-Z\s'-]+$/.test(val), {
+      message: "Position title can only contain letters.",
+    }),
   relationship: z
     .union([z.literal(""), z.enum(relationshipOptions)])
     .refine((val) => val !== "", {

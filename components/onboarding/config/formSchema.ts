@@ -27,6 +27,12 @@ export const onboardingSchema = z
           path: ["emergency", "guardianName"],
           message: "Guardian name is required.",
         });
+      } else if (!/^[a-zA-Z\s'-]+$/.test(data.emergency.guardianName)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["emergency", "guardianName"],
+          message: "Guardian name can only contain letters.",
+        });
       }
       if (!data.emergency.guardianPhone) {
         ctx.addIssue({
